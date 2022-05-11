@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "warre.fullname" . }}-api
+  labels:
+    {{- include "warre.labels" . | nindent 4 }}
+    app.kubernetes.io/component: api
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.api.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "warre.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: api
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config-map.yaml") . | sha256sum }}
+        vault.hashicorp.com/role: "{{ .Values.vault.role }}"
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-status: "update"
+        vault.hashicorp.com/secret-volume-path-secrets.conf: /etc/warre/warre.conf.d
+        vault.hashicorp.com/agent-inject-secret-secrets.conf: "{{ .Values.vault.settings_secret }}"
+        vault.hashicorp.com/agent-inject-template-secrets.conf: |
+          {{ print "{{- with secret \"" .Values.vault.settings_secret "\" -}}" }}
+          {{ print "[DEFAULT]" }}
+          {{ print "transport_url={{ .Data.data.transport_url }}" }}
+          {{ print "[database]" }}
+          {{ print "connection={{ .Data.data.database_connection }}" }}
+          {{ print "[warre]" }}
+          {{ print "bot_password={{ .Data.data.bot_password }}" }}
+          {{ print "[flask]" }}
+          {{ print "secret_key={{ .Data.data.secret_key }}" }}
+          {{ print "[service_auth]" }}
+          {{ print "password={{ .Data.data.keystone_password }}" }}
+          {{ print "[keystone_authtoken]" }}
+          {{ print "password={{ .Data.data.keystone_password }}" }}
+          {{ print "[oslo_limit]" }}
+          {{ print "password={{ .Data.data.keystone_password }}" }}
+          {{ print "{{- end -}}" }}
+      labels:
+        {{- include "warre.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: api
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "warre.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: http
+          startupProbe:
+            httpGet:
+              path: /healthcheck
+              port: http
+            initialDelaySeconds: 10
+          volumeMounts:
+            - name: {{ include "warre.fullname" . }}
+              mountPath: "/etc/warre/"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: {{ include "warre.fullname" . }}
+          configMap:
+            name: {{ include "warre.fullname" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.api.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.api.affinity "context" $) | nindent 8 }}
+      {{- else }}
+      affinity:
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.api.podAffinityPreset "component" "api" "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.api.podAntiAffinityPreset "component" "api" "context" $) | nindent 10 }}
+        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.api.nodeAffinityPreset.type "key" .Values.api.nodeAffinityPreset.key "values" .Values.api.nodeAffinityPreset.values) | nindent 10 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

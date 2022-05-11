@@ -1,0 +1,14 @@
+{{- if .Values.api.pdb.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "warre.fullname" . }}-warre
+  labels:
+    {{- include "warre.labels" . | nindent 4 }}
+spec:
+  minAvailable: {{ .Values.api.pdb.minAvailable | default 0 }}
+  selector:
+    matchLabels:
+      {{- include "warre.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: api
+{{- end }}

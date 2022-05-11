@@ -1,0 +1,12 @@
+apiVersion: v2
+name: warre
+description: A Helm chart for warre
+type: application
+version: 0.9.0
+appVersion: 1.0.0-6-gb1fddb3
+dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  tags:
+  - bitnami-common
+  version: 1.x.x
