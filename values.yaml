@@ -46,6 +46,19 @@ worker:
     values: []
   affinity: {}
 
+notification:
+  replicaCount: 1
+  pdb:
+    enabled: false
+    minAvailable: 0
+  podAffinityPreset: ""
+  podAntiAffinityPreset: soft
+  nodeAffinityPreset:
+    type: ""
+    key: ""
+    values: []
+  affinity: {}
+
 image:
   repository: registry.rc.nectar.org.au/nectar/warre
   pullPolicy: IfNotPresent
