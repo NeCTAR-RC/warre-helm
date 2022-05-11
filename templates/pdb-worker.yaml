@@ -1,8 +1,8 @@
 {{- if .Values.worker.pdb.enabled }}
-workerVersion: policy/v1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "warre.fullname" . }}-warre
+  name: {{ include "warre.fullname" . }}-worker
   labels:
     {{- include "warre.labels" . | nindent 4 }}
 spec:

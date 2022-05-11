@@ -2,7 +2,7 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "warre.fullname" . }}-warre
+  name: {{ include "warre.fullname" . }}-api
   labels:
     {{- include "warre.labels" . | nindent 4 }}
 spec:
