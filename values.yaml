@@ -23,7 +23,7 @@ api:
   replicaCount: 1
   pdb:
     enabled: false
-    minAvailable: 0
+    minAvailable: 1
   podAffinityPreset: ""
   podAntiAffinityPreset: soft
   nodeAffinityPreset:
@@ -37,7 +37,7 @@ worker:
   replicaCount: 1
   pdb:
     enabled: false
-    minAvailable: 0
+    minAvailable: 1
   podAffinityPreset: ""
   podAntiAffinityPreset: soft
   nodeAffinityPreset:
@@ -50,7 +50,7 @@ notification:
   replicaCount: 1
   pdb:
     enabled: false
-    minAvailable: 0
+    minAvailable: 1
   podAffinityPreset: ""
   podAntiAffinityPreset: soft
   nodeAffinityPreset:
