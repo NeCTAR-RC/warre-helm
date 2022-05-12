@@ -73,7 +73,7 @@ spec:
             - name: {{ include "warre.fullname" . }}
               mountPath: "/etc/warre/"
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.api.resources | nindent 12 }}
       volumes:
         - name: {{ include "warre.fullname" . }}
           configMap:
