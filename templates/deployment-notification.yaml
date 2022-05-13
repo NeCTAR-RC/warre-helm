@@ -19,6 +19,7 @@ spec:
         checksum/config: {{ include (print $.Template.BasePath "/config-map.yaml") . | sha256sum }}
         vault.hashicorp.com/role: "{{ .Values.vault.role }}"
         vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-pre-populate-only: "true"
         vault.hashicorp.com/agent-inject-status: "update"
         vault.hashicorp.com/secret-volume-path-secrets.conf: /etc/warre/warre.conf.d
         vault.hashicorp.com/agent-inject-secret-secrets.conf: "{{ .Values.vault.settings_secret }}"
