@@ -11,6 +11,7 @@ conf:
     service_name: nectar-reservation
     endpoint_id:
     region_name:
+    memcached_servers: []
   warre:
     bot_role_id:
     bot_user_id:
