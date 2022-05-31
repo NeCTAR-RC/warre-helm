@@ -2,8 +2,8 @@ apiVersion: v2
 name: warre
 description: A Helm chart for warre
 type: application
-version: 0.9.9
-appVersion: 1.0.0-9-g3397e7d
+version: 0.9.10
+appVersion: 1.0.0-10-g74f4668
 dependencies:
 - name: common
   repository: https://charts.bitnami.com/bitnami
