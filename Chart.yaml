@@ -2,7 +2,7 @@ apiVersion: v2
 name: warre
 description: A Helm chart for warre
 type: application
-version: 1.0.8
+version: 1.0.9
 appVersion: 1.0.0-19-g829146a
 dependencies:
 - name: common

@@ -12,6 +12,9 @@ rabbit_ha_queues=True
 ssl=True
 amqp_durable_queues=True
 
+[oslo_messaging_notifications]
+driver = messagingv2
+
 [service_auth]
 auth_url={{ .Values.conf.keystone.auth_url }}
 username={{ .Values.conf.keystone.username }}
