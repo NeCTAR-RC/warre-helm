@@ -87,5 +87,7 @@ vault.hashicorp.com/agent-inject-template-secrets.conf: |
   {{ print "password={{ .Data.data.keystone_password }}" }}
   {{ print "[oslo_limit]" }}
   {{ print "password={{ .Data.data.keystone_password }}" }}
+  {{ print "[freshdesk]" }}
+  {{ print "key={{ .Data.data.freshdesk_key }}" }}
   {{ print "{{- end -}}" }}
 {{- end }}

@@ -15,6 +15,10 @@ conf:
   warre:
     bot_role_id:
     bot_user_id:
+  freshdesk:
+    domain: example.com
+    email_config_id: 1
+    group_id: 1
 
 vault:
   role: k8s
