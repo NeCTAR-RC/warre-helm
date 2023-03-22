@@ -15,11 +15,6 @@ amqp_durable_queues=True
 [oslo_messaging_notifications]
 driver = messagingv2
 
-[freshdesk]
-domain = {{ .Values.conf.freshdesk.domain }}
-email_config_id = {{ .Values.conf.freshdesk.email_config_id }}
-group_id = {{ .Values.conf.freshdesk.group_id }}
-
 [service_auth]
 auth_url={{ .Values.conf.keystone.auth_url }}
 username={{ .Values.conf.keystone.username }}
