@@ -4,6 +4,8 @@ description: A Helm chart for warre
 type: application
 version: 2.2.0
 appVersion: 4.1.0-3-g98feea5
+sources:
+  - https://github.com/NeCTAR-RC/warre-helm.git
 dependencies:
 - name: common
   repository: https://charts.bitnami.com/bitnami
