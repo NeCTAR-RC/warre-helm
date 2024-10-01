@@ -2,10 +2,10 @@ apiVersion: v2
 name: warre
 description: A Helm chart for warre
 type: application
-version: 2.3.1
-appVersion: 4.1.0-3-g98feea5
+version: 2.3.2
+appVersion: 4.1.0-4-geba04ae
 sources:
-  - https://github.com/NeCTAR-RC/warre-helm.git
+- https://github.com/NeCTAR-RC/warre-helm.git
 dependencies:
 - name: common
   repository: oci://registry-1.docker.io/bitnamicharts
