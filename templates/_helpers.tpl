@@ -75,6 +75,10 @@ vault.hashicorp.com/agent-inject-template-secrets.conf: |
   {{ print "{{- with secret \"" .Values.vault.settings_secret "\" -}}" }}
   {{ print "[DEFAULT]" }}
   {{ print "transport_url={{ .Data.data.transport_url }}" }}
+  {{ print "{{- if .Data.data.notification_transport_url }}" }}
+  {{ print "[oslo_messaging_notifications]" }}
+  {{ print "transport_url={{ .Data.data.notification_transport_url }}" }}
+  {{ print "{{- end }}" }}
   {{ print "[database]" }}
   {{ print "connection={{ .Data.data.database_connection }}" }}
   {{ print "[warre]" }}
