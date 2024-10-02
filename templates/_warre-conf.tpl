@@ -8,9 +8,11 @@ bot_role_id={{ .Values.conf.warre.bot_role_id }}
 bot_user_id={{ .Values.conf.warre.bot_user_id }}
 
 [oslo_messaging_rabbit]
-rabbit_ha_queues=True
 ssl=True
-amqp_durable_queues=True
+rabbit_quorum_queue=true
+rabbit_transient_quorum_queue=true
+rabbit_stream_fanout=true
+rabbit_qos_prefetch_count=1
 
 [oslo_messaging_notifications]
 driver = messagingv2
