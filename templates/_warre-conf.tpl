@@ -33,6 +33,7 @@ project_name={{ .Values.conf.keystone.project_name }}
 user_domain_name=Default
 project_domain_name=Default
 auth_type=password
+service_token_roles_required=True
 {{- if .Values.conf.keystone.memcached_servers }}
 memcached_servers={{ join "," .Values.conf.keystone.memcached_servers }}
 {{- end }}

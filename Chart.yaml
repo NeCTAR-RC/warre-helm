@@ -2,7 +2,7 @@ apiVersion: v2
 name: warre
 description: A Helm chart for warre
 type: application
-version: 2.4.4
+version: 2.4.5
 appVersion: 5.0.0-6-g5e7fa10
 sources:
 - https://github.com/NeCTAR-RC/warre-helm.git
