@@ -69,6 +69,8 @@ api:
 worker:
   image:
     repository: registry.rc.nectar.org.au/nectar/warre
+  command:
+    - warre-worker
   replicaCount: 1
   pdb:
     enabled: false
@@ -82,8 +84,11 @@ worker:
   affinity: {}
 
 notification:
+  name: notification
   image:
     repository: registry.rc.nectar.org.au/nectar/warre
+  command:
+    - warre-notification
   replicaCount: 1
   pdb:
     enabled: false
