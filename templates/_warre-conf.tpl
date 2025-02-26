@@ -17,6 +17,9 @@ rabbit_qos_prefetch_count=1
 [oslo_messaging_notifications]
 driver = messagingv2
 
+[oslo_middleware]
+enable_proxy_headers_parsing=True
+
 [service_auth]
 auth_url={{ .Values.conf.keystone.auth_url }}
 username={{ .Values.conf.keystone.username }}
