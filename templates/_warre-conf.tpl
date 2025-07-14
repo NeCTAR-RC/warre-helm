@@ -7,6 +7,9 @@ bot_auth_url={{ .Values.conf.keystone.auth_url }}
 bot_role_id={{ .Values.conf.warre.bot_role_id }}
 bot_user_id={{ .Values.conf.warre.bot_user_id }}
 
+[blazar]
+interface={{ .Values.conf.blazar.interface }}
+
 [oslo_messaging_rabbit]
 ssl=True
 rabbit_quorum_queue=true
