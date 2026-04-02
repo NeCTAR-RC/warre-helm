@@ -50,7 +50,6 @@ username={{ .Values.conf.keystone.username }}
 user_domain_name=Default
 auth_type=password
 system_scope=all
-service_name={{ .Values.conf.keystone.service_name }}
 endpoint_id={{ .Values.conf.keystone.endpoint_id }}
 region_name={{ .Values.conf.keystone.region_name }}
 {{- if .Values.conf.keystone.memcached_servers }}

@@ -8,7 +8,6 @@ conf:
     auth_url:
     username: warre
     project_name: service
-    service_name: nectar-reservation
     endpoint_id:
     region_name:
     memcached_servers: []
