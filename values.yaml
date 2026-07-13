@@ -16,6 +16,8 @@ conf:
     bot_user_id:
   blazar:
     interface: public
+  sentry:
+    environment: production
 
 vault:
   role: k8s

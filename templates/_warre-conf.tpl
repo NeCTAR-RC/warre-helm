@@ -10,6 +10,9 @@ bot_user_id={{ .Values.conf.warre.bot_user_id }}
 [blazar]
 interface={{ .Values.conf.blazar.interface }}
 
+[sentry]
+environment={{ .Values.conf.sentry.environment }}
+
 [oslo_messaging_rabbit]
 ssl=True
 rabbit_quorum_queue=true

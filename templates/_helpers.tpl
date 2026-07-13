@@ -28,5 +28,9 @@ vault.hashicorp.com/agent-inject-template-secrets.conf: |
   {{ print "password={{ .Data.data.keystone_password }}" }}
   {{ print "[oslo_limit]" }}
   {{ print "password={{ .Data.data.keystone_password }}" }}
+  {{ print "{{- if .Data.data.sentry_dsn }}" }}
+  {{ print "[sentry]" }}
+  {{ print "dsn={{ .Data.data.sentry_dsn }}" }}
+  {{ print "{{- end }}" }}
   {{ print "{{- end -}}" }}
 {{- end }}
