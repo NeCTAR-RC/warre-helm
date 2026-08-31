@@ -14,7 +14,6 @@ interface={{ .Values.conf.blazar.interface }}
 environment={{ .Values.conf.sentry.environment }}
 
 [oslo_messaging_rabbit]
-rabbit_transient_queues_ttl=600
 ssl=True
 rabbit_quorum_queue=true
 rabbit_transient_quorum_queue=true
