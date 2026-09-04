@@ -70,6 +70,25 @@ worker:
     key: ""
     values: []
   affinity: {}
+  # Probe the worker's own RPC server via oslo.messaging's built-in
+  # ping endpoint (rpc_ping_enabled=true is set in warre.conf). The
+  # probe targets the per-host queue warre-worker.<pod hostname>, so
+  # it proves this pod's worker is consuming and dispatching messages,
+  # catching a cotyledon service manager that is running but spawned
+  # no workers. Startup-only on purpose: a liveness probe on the
+  # message bus would mass-restart every worker during a RabbitMQ
+  # outage that oslo.messaging would ride out by reconnecting;
+  # post-start wedges are left to queue/consumer alerting.
+  startupProbe:
+    exec:
+      command:
+        - nectar-health-probe
+        - "--project"
+        - warre
+        - rpc-ping
+    periodSeconds: 10
+    timeoutSeconds: 10
+    failureThreshold: 30
 
 notification:
   name: notification
@@ -95,6 +114,22 @@ notification:
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+  # warre-notification runs a notification listener, not an RPC
+  # server, so oslo.messaging's RPC ping endpoint is not available.
+  # Instead check the pod holds an ESTABLISHED TCP connection to the
+  # transport_url port, which catches a cotyledon service manager that
+  # is running but spawned no consumer at all. Startup-only on
+  # purpose: see worker.startupProbe above.
+  startupProbe:
+    exec:
+      command:
+        - nectar-health-probe
+        - "--project"
+        - warre
+        - amqp
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 30
 
 
 job:
